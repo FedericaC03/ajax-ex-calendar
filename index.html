@@ -24,7 +24,9 @@
   </div>
 
   <script id="calendar" type="text/x-handlebars-template">
-    <li class="day">{{day}} {{month}}</li>
+    <li class="day" data-data="{{date}}">{{day}} {{month}}
+      <span class="holidayName"></span>
+    </li>
   </script>
   <script src="js/script.js" charset="utf-8"></script>
 </body>
