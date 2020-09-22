@@ -4,14 +4,16 @@ $(document).ready(function() {
 
   calendar(date);
   holidays(date);
-  nextMonth(date);
-  prevMonth(date);
+  prevMonth (date);
+  nextMonth (date);
 
 });
 
+//FUNZIONE CALENDARIO: ELENCO GIORNI DEL MESE
 function calendar(date) {
 
   var momentdate = moment(date);
+  $(".days").html("");
   var giorniMese = momentdate.daysInMonth()
   var mese = momentdate.format("MMMM");
 
@@ -21,7 +23,7 @@ function calendar(date) {
   var source = $("#calendar").html();
   var template = Handlebars.compile(source);
 
-  //CICLO TUTTI I GIORNI DEL MESE E
+  //CICLO TUTTI I GIORNI DEL MESE E LI APPENDO ALL'HTML
   for (var i = 1; i <= giorniMese; i++) {
     var newMomentDate = momentdate;
 
@@ -33,16 +35,14 @@ function calendar(date) {
     var html = template(context);
     $(".days").append(html);
     newMomentDate.add(1, "day");
-
     };
-
   }
 
 //AGGIUNGO AD OGNI FESTIVITA' IL COLORE ROSSO E IL NOME
 function holidays(date) {
   var month = date.format("M") - 1;
 
-  //EFFETTUO UNA CHIAMATA AJAX ALL'API DELLE FESTIVITA'
+//EFFETTUO UNA CHIAMATA AJAX ALL'API DELLE FESTIVITA'
   $.ajax(
     {
       "url": "https://flynn.boolean.careers/exercises/api/holidays",
@@ -68,12 +68,12 @@ function holidays(date) {
     }
   );
 }
-
 //FUNZIONE CLICK PREV
 function prevMonth (date) {
   var nextMonth = $(".prev");
 
   nextMonth.click(function(){
+
     date.subtract(1, "months");
 
     if (date.year() == 2017) {
@@ -82,22 +82,16 @@ function prevMonth (date) {
     } else {
       calendar(date);
       holidays(date);
-      //TEMPLATE 2
-      // var source = $("#template").html();
-      // var template = Handlebars.compile(source);
-      // $("#mese-corrente").html("");
-      // $("#mese-corrente").append(date.format("MMMM-YYYY"));
     }
-
   })
-
-}
+};
 
 //FUNZIONE CLICK NEXT {
 function nextMonth (date) {
   var nextMonth = $(".next");
 
   nextMonth.click(function(){
+
     date.add(1, "months");
 
     if (date.year() == 2019) {
@@ -106,11 +100,6 @@ function nextMonth (date) {
     } else {
       calendar(date);
       holidays(date);
-      //TEMPLATE 2
-      // var source = $("#template").html();
-      // var template = Handlebars.compile(source);
-      // $("#mese-corrente").html("");
-      // $("#mese-corrente").append(date.format("MMMM-YYYY"));
     }
   })
 };
